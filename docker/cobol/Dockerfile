@@ -18,7 +18,7 @@ RUN ldconfig -v
 COPY src /app/src
 
 WORKDIR /app
-
-RUN cobc -x -free src/main/hello_world.cbl src/main/display_two_texts.cbl
+RUN cobc -c -free src/main/display_two_texts.cbl
+RUN cobc -x -free src/main/hello_world.cbl display_two_texts.o
 
 CMD ["./hello_world"]
