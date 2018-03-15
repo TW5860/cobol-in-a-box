@@ -3,7 +3,7 @@ PROGRAM-ID. HELLO.
 
 DATA DIVISION.
    WORKING-STORAGE SECTION.
-   COPY "src/main/copystrecke.cpy".
+        COPY "src/main/copystrecke.cpy".
 
 PROCEDURE DIVISION.
    MOVE "haha" TO IN-VAL1.
