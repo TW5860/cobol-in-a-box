@@ -19,6 +19,6 @@ COPY src /app/src
 
 WORKDIR /app
 
-RUN cobc -x -free src/main/hello_world.cbl
+RUN cobc -x -free src/main/hello_world.cbl src/main/display_two_texts.cbl
 
 CMD ["./hello_world"]
