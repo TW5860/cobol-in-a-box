@@ -11,9 +11,8 @@ DATA DIVISION.
     FD SYSIN
         RECORDING MODE IS V
         RECORD IS VARYING IN SIZE
-        FROM 0 TO 99 DEPENDING ON
-        COUNT-OF-BUILDINGS.
-    01  INPUT-RECORD PIC X(5).
+        FROM 0 TO 99.
+    01  INPUT-RECORD PIC X(1).
 
     WORKING-STORAGE SECTION.
         COPY "src/main/copystrecke.cpy".
