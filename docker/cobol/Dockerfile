@@ -18,8 +18,7 @@ RUN ldconfig -v
 COPY src /app/src
 
 WORKDIR /app
-RUN cobc -c -free src/main/display_two_texts.cbl
-RUN cobc -x -free src/main/hello_world.cbl display_two_texts.o
-RUN cobc -x -free -std=ibm src/main/write_file.cbl
+RUN cobc -c -free src/main/double_height.cbl
+RUN cobc -x -free src/main/hello_world.cbl double_height.o
 
-CMD ["./write_file"]
+CMD ["./hello_world"]
