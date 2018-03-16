@@ -19,6 +19,8 @@ COPY src /app/src
 
 WORKDIR /app
 RUN cobc -c -free src/main/double_height.cbl
-RUN cobc -x -free src/main/hello_world.cbl double_height.o
+RUN cobc -x -free src/main/test_driver.cbl double_height.o
 
-CMD ["./hello_world"]
+# RUN cobc -x -free src/main/hello_world.cbl double_height.o
+
+CMD ["./src/test/execute_test.sh"]
