@@ -8,9 +8,6 @@ DATA DIVISION.
    LINKAGE SECTION.
    COPY "src/main/copystrecke.cpy".
 
-
-
-
 PROCEDURE DIVISION USING BUILDINGS.
 double-all-buildings.
     PERFORM double-one-building VARYING I FROM 1 BY 1 UNTIL I > COUNT-OF-BUILDINGS.
