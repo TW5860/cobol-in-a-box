@@ -1,8 +1,10 @@
 let { exec } = require('child_process');
 let { parseBuildings } = require('./cobol_to_json');
+let { printBuildings } = require('./json_to_cobol');
 
 exports.execTestDriver = function (input, resultCallback) {
-    exec(`echo "${input}" | ./test_driver`, (err, stdout, stderr) => {
+    let input_str = printBuildings(input);
+    exec(`echo "${input_str}" | ./test_driver`, (err, stdout, stderr) => {
         if (err) {
           // command not found or something
           fail(err);
