@@ -3,7 +3,7 @@ PROGRAM-ID. HELLO.
 
 DATA DIVISION.
    WORKING-STORAGE SECTION.
-        COPY "src/main/copystrecke.cpy".
+        COPY "src/main/buildings_copy_file.cpy".
         01 WS-CONCAT PIC X(100).
         01 WS-INDEX-FOR-STRING PIC 9(2).
         01 WS-HEIGHT PIC 9(2).

@@ -6,7 +6,7 @@ DATA DIVISION.
    01 WS-HEIGHT PIC 9(5).
 
    LINKAGE SECTION.
-   COPY "src/main/copystrecke.cpy".
+   COPY "src/main/buildings_copy_file.cpy".
 
 PROCEDURE DIVISION USING BUILDINGS.
 double-all-buildings.

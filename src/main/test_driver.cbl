@@ -15,7 +15,7 @@ DATA DIVISION.
     01  INPUT-RECORD PIC X(1).
 
     WORKING-STORAGE SECTION.
-        COPY "src/main/copystrecke.cpy".
+        COPY "src/main/buildings_copy_file.cpy".
 
 
 
