@@ -1,4 +1,4 @@
-let { print9, printX } = require('./helpers/json_to_cobol');
+let { print9, printX, printBuildings } = require('./helpers/json_to_cobol');
 
 describe('JSON to COBOL converter', () => {
     describe('print9', () => {
@@ -36,6 +36,57 @@ describe('JSON to COBOL converter', () => {
 
         it ('throws an error on oversized input', () => {
             expect(() => printX('abcdefg', 3)).toThrow(new Error ("Input string is too long for copybook."));
+        });
+
+        it ('throws an error on not a string input', () => {
+            expect(() => printX(undefined, 3)).toThrow(new Error ("Input is not a string"));
+            expect(() => printX(NaN, 3)).toThrow(new Error ("Input is not a string"));
+            expect(() => printX(true, 3)).toThrow(new Error ("Input is not a string"));
+            expect(() => printX(9.8, 3)).toThrow(new Error ("Input is not a string"));
+            expect(() => printX({}, 3)).toThrow(new Error ("Input is not a string"));
+            expect(() => printX([], 3)).toThrow(new Error ("Input is not a string"));
+        });
+    });
+
+    describe('printBuilding', () => {
+        it ('prints an empty buildings list', () => {
+            let buildings = {'buildings': []};
+            expect(printBuildings(buildings)).toBe("00");
+        });
+
+        it ('prints a single building', () => {
+            let buildings = {'buildings': [
+                {'building_name': 'Kims Tower', 'building_height': 60}]};
+            expect(printBuildings(buildings)).toBe("01Kims Tower               00060");
+        });
+
+        it ('prints multiple buildings', () => {
+            let buildings = {
+                'buildings': [
+                    {'building_name': 'Kims Tower', 'building_height': 60},
+                    {'building_name': 'Simons Basement', 'building_height': 2}
+                ]
+            };
+            expect(printBuildings(buildings)).toBe("02Kims Tower               00060Simons Basement          00002");
+        });
+
+        it ('throws error on misformed parameter', () => {
+            let buildings = {'buildings': [
+                {'building_name': 'Kims Tower'}]};
+            expect(() => printBuildings(buildings)).toThrowError(Error);
+
+            buildings = {'buildings': [
+                {'building_height': 60}]};
+            expect(() => printBuildings(buildings)).toThrowError(Error);
+
+            buildings = {'buildings': {}};
+            expect(() => printBuildings(buildings)).toThrowError(Error);
+
+            expect(() => printBuildings({})).toThrowError(Error);
+
+            expect(() => printBuildings(undefined)).toThrowError(Error);
+            expect(() => printBuildings(9)).toThrowError(Error);
+            expect(() => printBuildings("hallo")).toThrowError(Error);
         });
     });
 
