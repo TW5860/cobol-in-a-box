@@ -30,4 +30,4 @@ RUN cobc -x -free src/main/test_driver.cbl double_height.o
 
 # RUN cobc -x -free src/main/hello_world.cbl double_height.o
 
-CMD ["./src/test/execute_test.sh"]
+CMD ["npm", "test"]
