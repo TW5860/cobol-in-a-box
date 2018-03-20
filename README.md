@@ -17,7 +17,7 @@ What this will do?
 1. Build a Docker container with GnuCOBOL and Node.js installed
 2. Compile your COBOL code (found in [src/main](src/main))
 3. Run `npm test`, which will invoke Jasmine.
-4. Jasmine will now run all your spec files in [spec](spec).
+4. Jasmine will now run all your spec files in [src/spec](src/spec).
 
 ## How does it work?
 
