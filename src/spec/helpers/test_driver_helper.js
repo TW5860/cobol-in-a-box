@@ -1,4 +1,5 @@
 let { exec } = require('child_process');
+let { parseBuildings } = require('./cobol_to_json');
 
 exports.execTestDriver = function (input, resultCallback) {
     exec(`echo "${input}" | ./test_driver`, (err, stdout, stderr) => {
@@ -7,6 +8,9 @@ exports.execTestDriver = function (input, resultCallback) {
           fail(err);
           return;
         }
-        resultCallback(stdout.trim());
+
+        let buildingsObj = parseBuildings(stdout.trim());
+
+        resultCallback(buildingsObj);
     });
 };
