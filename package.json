@@ -1,0 +1,19 @@
+{
+  "name": "cobol-tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "##NO_ENTRYPOINT##",
+  "scripts": {
+    "test": "babel-node src/spec/support/run.js"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "jasmine": "^3.1.0",
+    "jasmine-spec-reporter": "^4.2.1"
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
+  }
+}

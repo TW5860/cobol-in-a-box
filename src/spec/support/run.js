@@ -1,0 +1,16 @@
+import Jasmine from 'jasmine'
+
+const SpecReporter = require('jasmine-spec-reporter').SpecReporter;
+
+
+var jasmine = new Jasmine()
+jasmine.loadConfigFile('src/spec/support/jasmine.json')
+
+jasmine.env.clearReporters();               // remove default reporter logs
+jasmine.env.addReporter(new SpecReporter({  // add jasmine-spec-reporter
+  spec: {
+    displayPending: true
+  }
+}));
+
+jasmine.execute()

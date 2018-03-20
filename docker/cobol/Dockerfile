@@ -12,12 +12,19 @@ RUN make install
 RUN make check
 RUN make installcheck
 
+RUN wget -O nodejs.tar.gz http://nodejs.org/dist/v0.10.30/node-v0.10.30-linux-x64.tar.gz
+RUN tar --strip-components 1 -xzvf nodejs.tar.gz -C /usr/local
+
 COPY docker/cobol/usrlocallib.conf /etc/ld.so.conf.d/usrlocallib.conf
 RUN ldconfig -v
 
+COPY package.json /app/package.json
+COPY .babelrc /app/.babelrc
+WORKDIR /app
+RUN npm install
+
 COPY src /app/src
 
-WORKDIR /app
 RUN cobc -c -free src/main/double_height.cbl
 RUN cobc -x -free src/main/test_driver.cbl double_height.o
 
