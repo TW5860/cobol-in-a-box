@@ -48,6 +48,28 @@ let buildObjectParser = function (dataSpecObj) {
     }
 };
 
+let buildArrayParser = function (dataSpecObj) {
+    let innerParser = buildParserInternal(dataSpecObj.items);
+    return function (inputStr) {
+        let returnObject = [];
+        let itemCountLength = dataSpecObj.maxItems.toString().length;
+        let length = itemCountLength;
+        let itemCount = parse9(inputStr.substr(0, itemCountLength), itemCountLength);
+        let remainingInput = inputStr.substr(itemCountLength);
+        for (let i = 0; i < itemCount; i++) {
+            let itemResult = innerParser(remainingInput);
+            length += itemResult.length;
+            remainingInput = itemResult.remainingString;
+            returnObject.push(itemResult.parsed);
+        }
+        return {
+            'parsed': returnObject,
+            'length': length,
+            'remainingString': remainingInput
+        };
+    }
+}
+
 function buildParserInternal(dataSpecObj) {
     switch (dataSpecObj.type) {
         case 'integer':
@@ -56,6 +78,8 @@ function buildParserInternal(dataSpecObj) {
             return buildStringParser(dataSpecObj);
         case 'object':
             return buildObjectParser(dataSpecObj);
+        case 'array':
+            return buildArrayParser(dataSpecObj);
         default :
             throw new Error("Not a valid object type");
     }

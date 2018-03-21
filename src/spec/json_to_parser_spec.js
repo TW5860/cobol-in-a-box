@@ -130,4 +130,38 @@ describe('JSON to parser', () => {
             });
         });
     });
+
+    describe("Array parser", () => {
+        it('creates a parser for an empty array', () => {
+            let obj = {
+                "type": "array",
+                "maxItems": 99,
+                "minItems": 0,
+                "items": {
+                    "type": "string",
+                    "maxLength": 5
+                }
+            };
+
+            let resultParser = buildParser(obj);
+
+            expect(resultParser("00")).toEqual([]);
+        });
+
+        it('creates a parser for an array with one item', () => {
+            let obj = {
+                "type": "array",
+                "maxItems": 99,
+                "minItems": 0,
+                "items": {
+                    "type": "string",
+                    "maxLength": 10
+                }
+            };
+
+            let resultParser = buildParser(obj);
+
+            expect(resultParser("01redballoon")).toEqual(["redballoon"]);
+        });
+    });
 });
