@@ -23,10 +23,12 @@ COPY .babelrc /app/.babelrc
 WORKDIR /app
 RUN npm install
 
-COPY src /app/src
+COPY src/main /app/src/main
 
 RUN cobc -c -free src/main/double_height.cbl
 RUN cobc -x -free src/main/test_driver.cbl double_height.o
+
+COPY src/spec /app/src/spec
 
 # RUN cobc -x -free src/main/hello_world.cbl double_height.o
 
