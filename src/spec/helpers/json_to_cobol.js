@@ -1,18 +1,3 @@
-let printBuilding = function (building) {
-    if (!Number.isInteger(building.building_height), (typeof building.building_name !== 'string')) {
-        throw new Error("Element in the array is not a valid building");
-    }
-    return printX(building.building_name, 25) + print9(building.building_height, 5);
-};
-
-let printBuildings = function (buildings) {
-    let buildingsArray = buildings.buildings;
-    if (!Array.isArray(buildingsArray)) {
-        throw new Error("Element in the array is not a valid building");
-    }
-    return print9(buildingsArray.length, 2) + buildingsArray.map(printBuilding).join('');
-};
-
 let print9 = function (number, char_count) {
     if (!Number.isInteger(number)) {
         throw new Error("Could not print a value as number that is no number.");
@@ -35,7 +20,6 @@ let printX = function (str, char_count) {
 };
 
 module.exports = {
-    printBuildings: printBuildings,
     print9: print9,
     printX: printX
 };

@@ -1,4 +1,4 @@
-let {parse9, parseX, parseBuildings} = require('./helpers/cobol_to_json');
+let {parse9, parseX} = require('./helpers/cobol_to_json');
 
 describe('COBOL to JSON converter', () => {
 
@@ -58,34 +58,6 @@ describe('COBOL to JSON converter', () => {
         it('does not parse string with wrong character count', () => {
             expect(() => parseX('too short', 25)).toThrow(new Error("Parsing is not possible. Wrong character count."));
             expect(() => parseX('too long', 3)).toThrow(new Error("Parsing is not possible. Wrong character count."));
-        });
-    });
-
-    describe('parseBuildings', () => {
-        it('parses an empty building list', () => {
-            expect(parseBuildings('00')).toEqual({
-                'buildings': []
-            });
-        });
-
-        it('parses a single building', () => {
-            expect(parseBuildings('01Kims House               00020')).toEqual({
-                'buildings': [{'building_name': 'Kims House', 'building_height': 20}]
-            });
-        });
-
-        it('parses multiple buildings', () => {
-            expect(parseBuildings('02Kims House               00020Simon Castle             90000')).toEqual({
-                'buildings': [{'building_name': 'Kims House', 'building_height': 20},
-                    {'building_name': 'Simon Castle', 'building_height': 90000}]
-            });
-        });
-
-        it('throws an error on incorrect array size', () => {
-            expect(() => {
-                parseBuildings('01Kims House               00020Simon Castle             90000')
-            })
-                .toThrow(new Error("Parsing is not possible. There are too many buildings in the array."));
         });
     });
 
