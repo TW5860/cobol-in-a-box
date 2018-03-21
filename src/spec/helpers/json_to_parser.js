@@ -3,13 +3,22 @@ let {parse9, parseX} = require('./cobol_to_json');
 let buildIntegerParser = function (dataSpecObj) {
     let length = dataSpecObj["maximum"].toString().length;
     return function (inputStr) {
-        return parse9(inputStr, length);
+        return {
+            'parsed': parse9(inputStr.substr(0, length), length),
+            'length': length,
+            'remainingString': inputStr.substr(length)
+        };
     };
 };
 
 let buildStringParser = function (dataSpecObj) {
     return function (inputStr) {
-        return parseX(inputStr, dataSpecObj["maxLength"]);
+        let length = dataSpecObj["maxLength"];
+        return {
+            'parsed': parseX(inputStr.substr(0, length), length),
+            'length': length,
+            'remainingString': inputStr.substr(length)
+        };
     };
 };
 
@@ -17,28 +26,29 @@ let buildObjectParser = function (dataSpecObj) {
 
     const keys = Object.keys(dataSpecObj.properties);
     return function (inputStr) {
-        let buffer = inputStr;
 
-        function cut(count) {
-            let cutted = buffer.substr(0, count);
-            buffer = buffer.substr(count);
-            return cutted;
-        }
+        let returnObject = {};
+        let remainingInput = inputStr;
+        let length = 0;
 
-        if (keys.length > 0) {
-            let obj = {};
-            for (let i = 0; i < keys.length; i++) {
-                obj[keys[i]] = buildParser(dataSpecObj.properties[keys[i]])(cut(8));
-            }
-            return obj;
+        for (let i = 0; i < keys.length; i++) {
+            let currentAttribute = dataSpecObj.properties[keys[i]];
+            let parserFunction = buildParserInternal(currentAttribute);
+            let recursiveResult = parserFunction(remainingInput);
+
+            returnObject[keys[i]] = recursiveResult.parsed;
+            remainingInput = recursiveResult.remainingString;
+            length += recursiveResult.length;
         }
-        else {
-            return {};
-        }
+        return {
+            'parsed': returnObject,
+            'length': length,
+            'remainingString': remainingInput
+        };
     }
 };
 
-function buildParser(dataSpecObj) {
+function buildParserInternal(dataSpecObj) {
     switch (dataSpecObj.type) {
         case 'integer':
             return buildIntegerParser(dataSpecObj);
@@ -48,6 +58,14 @@ function buildParser(dataSpecObj) {
             return buildObjectParser(dataSpecObj);
         default :
             throw new Error("Not a valid object type");
+    }
+}
+
+function buildParser(dataSpecObj) {
+    let internalParser = buildParserInternal(dataSpecObj);
+    return function (inputStr) {
+        let res = internalParser(inputStr);
+        return res.parsed;
     }
 }
 
