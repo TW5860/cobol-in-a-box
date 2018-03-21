@@ -87,5 +87,47 @@ describe('JSON to parser', () => {
                 "test_int": 1
             });
         });
+
+        it('creates parsers recursively 2nd level', () => {
+            let obj = {
+                "type": "object",
+                "properties": {
+                    "test_item": {
+                        "type": "string",
+                        "maxLength": 8
+                    },
+                    "test_int": {
+                        "type": "integer",
+                        "maximum": 999,
+                        "minimum": 0
+                    },
+                    "2ndlevel": {
+                        "type": "object",
+                        "properties": {
+                            "2ndlevel_string": {
+                                "type": "string",
+                                "maxLength": 1
+                            },
+                            "2ndlevel_int": {
+                                "type": "integer",
+                                "maximum": 99,
+                                "minimum": 0
+                            }
+                        }
+                    }
+                }
+            };
+
+            let resultParser = buildParser(obj);
+
+            expect(resultParser("Hallo   001007")).toEqual({
+                "test_item": "Hallo",
+                "test_int": 1,
+                "2ndlevel":{
+                    "2ndlevel_string": "0",
+                    "2ndlevel_int" : 7
+                }
+            });
+        });
     });
 });
