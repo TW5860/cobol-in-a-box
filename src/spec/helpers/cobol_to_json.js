@@ -14,7 +14,7 @@ let parseX = function (input, char_count) {
     if (input.length != char_count) {
         throw new Error("Parsing is not possible. Wrong character count.");
     }
-    return input.replace(/[ ]+$/g,'');
+    return input.replace(/[ ]+$/g, '');
 };
 
 let parseBuildings = function (input) {
@@ -42,6 +42,7 @@ let parseBuildings = function (input) {
 };
 
 module.exports = {
-        parse9 : parse9,
-        parseX : parseX,
-        parseBuildings: parseBuildings};
+    parse9: parse9,
+    parseX: parseX,
+    parseBuildings: parseBuildings
+};

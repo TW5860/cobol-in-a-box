@@ -1,6 +1,10 @@
+let {parse9} = require('./cobol_to_json');
+
 function buildParser(dataSpecObj) {
+
+    let length = dataSpecObj["maximum"].toString().length;
     return function (inputStr) {
-        return 6;
+        return parse9(inputStr, length);
     };
 }
 
