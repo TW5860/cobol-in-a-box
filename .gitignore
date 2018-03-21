@@ -1,2 +1,5 @@
 /.idea
 /.DS_Store
+cobol-in-a-box.iml
+node_modules/
+package-lock.json
