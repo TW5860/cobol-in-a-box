@@ -25,8 +25,8 @@ RUN npm install
 
 COPY src/main /app/src/main
 
-RUN cobc -c -free src/main/double_height.cbl
-RUN cobc -x -free src/main/test_driver.cbl double_height.o
+RUN cobc -c -free src/main/book_stats.cbl
+RUN cobc -x -free src/main/test_driver.cbl book_stats.o
 
 COPY src/spec /app/src/spec
 

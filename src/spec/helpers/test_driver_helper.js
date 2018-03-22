@@ -4,11 +4,13 @@ let {buildParser} = require('./json_to_parser');
 let {buildPrinter} = require('./json_to_printer');
 
 exports.execTestDriver = function (input, resultCallback) {
-    let copybookSpec = JSON.parse(fs.readFileSync('src/spec/copybook_json.json', 'utf8'));
-    copybookSpec = copybookSpec["properties"]["WHATEVEROperation"];
+    let copybookSpecInput = JSON.parse(fs.readFileSync('src/spec/request-schema.json', 'utf8'));
+    copybookSpecInput = copybookSpecInput["properties"]["WHATEVEROperation"];
+    let copybookSpecOutput = JSON.parse(fs.readFileSync('src/spec/response-schema.json', 'utf8'));
+    copybookSpecOutput = copybookSpecOutput["properties"]["WHATEVEROperationResponse"];
 
-    let printFunc = buildPrinter(copybookSpec);
-    let parseFunc = buildParser(copybookSpec);
+    let printFunc = buildPrinter(copybookSpecInput);
+    let parseFunc = buildParser(copybookSpecOutput);
 
     let input_str = printFunc(input);
     exec(`echo "${input_str}" | ./test_driver`, (err, stdout, stderr) => {
@@ -17,9 +19,8 @@ exports.execTestDriver = function (input, resultCallback) {
             fail(err);
             return;
         }
+        let responseObj = parseFunc(stdout.trim());
 
-        let buildingsObj = parseFunc(stdout.trim());
-
-        resultCallback(buildingsObj);
+        resultCallback(responseObj);
     });
 };

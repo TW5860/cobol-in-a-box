@@ -1,0 +1,43 @@
+{
+   "$schema":"http:\/\/json-schema.org\/draft-04\/schema#",
+   "description":"Response schema for the WHATEVER JSON interface",
+   "type":"object",
+   "properties":{
+      "WHATEVEROperationResponse":{
+         "type":"object",
+         "properties":{
+            "book_stats":{
+               "type":"object",
+               "properties":{
+                  "min_pages":{
+                     "type":"integer",
+                     "maximum":9999,
+                     "minimum":0
+                  },
+                  "max_pages":{
+                     "type":"integer",
+                     "maximum":9999,
+                     "minimum":0
+                  },
+                  "avg_pages":{
+                     "type":"integer",
+                     "maximum":9999,
+                     "minimum":0
+                  }
+               },
+               "required":[
+                  "min_pages",
+                  "max_pages",
+                  "avg_pages"
+               ]
+            }
+         },
+         "required":[
+            "book_stats"
+         ]
+      }
+   },
+   "required":[
+      "WHATEVEROperationResponse"
+   ]
+}

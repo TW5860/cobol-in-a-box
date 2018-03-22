@@ -1,6 +1,6 @@
 let {execTestDriver} = require('./helpers/test_driver_helper');
 
-describe("Double Height", function () {
+xdescribe("Double Height", function () {
     it("keeps an empty building list", function (done) {
         let emptyBuildingsList = {
             'buildings': {

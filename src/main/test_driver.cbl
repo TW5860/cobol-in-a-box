@@ -11,22 +11,23 @@ DATA DIVISION.
     FD SYSIN
         RECORDING MODE IS V
         RECORD IS VARYING IN SIZE
-        FROM 0 TO 99.
+        FROM 0 TO 9999999.
     01  INPUT-RECORD PIC X(1).
 
     WORKING-STORAGE SECTION.
-        COPY "src/main/buildings_copy_file.cpy".
+        COPY "src/main/books_copybook.cpy".
+        COPY "src/main/book_stats_copybook.cpy".
 
 
 
 PROCEDURE DIVISION.
 main-paragraph.
     OPEN INPUT SYSIN.
-    READ SYSIN INTO BUILDINGS
+    READ SYSIN INTO BOOKS-INPUT
     END-READ.
     CLOSE SYSIN.
 
-    CALL 'DOUBLE-HEIGHT' USING BUILDINGS.
+    CALL 'BOOK-STATS' USING BOOKS-INPUT, BOOK-STATS.
 
-    DISPLAY BUILDINGS.
+    DISPLAY BOOK-STATS.
     STOP RUN.
