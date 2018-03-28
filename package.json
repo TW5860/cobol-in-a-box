@@ -4,7 +4,7 @@
   "description": "",
   "main": "##NO_ENTRYPOINT##",
   "scripts": {
-    "test": "babel-node src/spec/support/run.js"
+    "test": "babel-node jasmine/run.js"
   },
   "author": "",
   "license": "UNLICENSED",

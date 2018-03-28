@@ -8,8 +8,8 @@ DATA DIVISION.
         01 I         PIC 99.
 
 LINKAGE SECTION.
-    COPY "src/main/books_copybook.cpy".
-    COPY "src/main/book_stats_copybook.cpy".
+    COPY "books_copybook.cpy".
+    COPY "book_stats_copybook.cpy".
 
 PROCEDURE DIVISION USING BOOKS-INPUT, BOOK-STATS.
     PERFORM VARYING I FROM 1 BY 1 UNTIL I > BOOK-COUNT

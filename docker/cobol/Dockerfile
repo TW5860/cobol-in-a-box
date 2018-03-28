@@ -18,18 +18,22 @@ RUN tar --strip-components 1 -xzvf nodejs.tar.gz -C /usr/local
 COPY docker/cobol/usrlocallib.conf /etc/ld.so.conf.d/usrlocallib.conf
 RUN ldconfig -v
 
+RUN mkdir /app
+WORKDIR /app
+
 COPY package.json /app/package.json
 COPY .babelrc /app/.babelrc
-WORKDIR /app
+COPY cobol_unit_test_helper /app/cobol_unit_test_helper
 RUN npm install
 
-COPY src/main /app/src/main
+COPY examples /app/examples
 
-RUN cobc -c -free src/main/book_stats.cbl
-RUN cobc -x -free src/main/test_driver.cbl book_stats.o
-
-COPY src/spec /app/src/spec
+WORKDIR /app/examples/books
+RUN cobc -c -free book_stats.cbl
+RUN cobc -x -free test_driver.cbl book_stats.o
 
 # RUN cobc -x -free src/main/hello_world.cbl double_height.o
 
+WORKDIR /app
+COPY jasmine /app/jasmine
 CMD ["npm", "test"]

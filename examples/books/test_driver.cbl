@@ -15,10 +15,8 @@ DATA DIVISION.
     01  INPUT-RECORD PIC X(1).
 
     WORKING-STORAGE SECTION.
-        COPY "src/main/books_copybook.cpy".
-        COPY "src/main/book_stats_copybook.cpy".
-
-
+        COPY "books_copybook.cpy".
+        COPY "book_stats_copybook.cpy".
 
 PROCEDURE DIVISION.
 main-paragraph.

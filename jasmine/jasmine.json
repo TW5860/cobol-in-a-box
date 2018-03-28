@@ -1,11 +1,11 @@
 {
-  "spec_dir": "src/spec",
+  "spec_dir": "examples/books",
   "spec_files": [
     "**/*[sS]pec.js"
   ],
   "helpers": [
     "../../node_modules/jasmine-es6/lib/install.js",
-    "helpers/**/*.js"
+    "cobol_unit_test_helper/**/*.js"
   ],
   "stopSpecOnExpectationFailure": false,
   "random": true

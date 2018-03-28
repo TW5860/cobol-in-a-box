@@ -1,4 +1,4 @@
-let {execTestDriver} = require('./helpers/test_driver_helper');
+let {execTestDriver} = require('./test_driver_helper');
 
 describe('Book Stats', () => {
     it('calculates stats for one book', (done) => {
